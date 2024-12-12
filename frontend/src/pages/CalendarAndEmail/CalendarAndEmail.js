@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+// import '@fullcalendar/core/index.global.css';
 
-const CalendarAndEmail = ({ message }) => {
+const CalendarAndEmail = () => {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/events')
+      .then(response => response.json())
+      .then(data => setEvents(data));
+  }, []);
+
   return (
     <div>
-      <h1>{message}</h1>
-      {/* Other component code */}
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView="dayGridMonth"
+        events={events.map(event => ({
+          title: event.todo,
+          start: event.date
+        }))}
+      />
     </div>
   );
 };
