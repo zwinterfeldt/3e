@@ -76,7 +76,7 @@ const GuestList = () => {
     <div style={{textAlign: "center"}}>
       <h1 style={{marginTop:"20px"}}>Guest List</h1>
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      <ul>
+      <ul style={{listStyleType: "none", padding: 0}}>
         {guests.map((guest,index) => (
           <li key={index}>
              {index+1}. {guest}{" "}
