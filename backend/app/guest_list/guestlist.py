@@ -6,11 +6,16 @@ guestlist_routes = Blueprint('guestlist_routes', __name__)
 def guest_list():
     return jsonify({"guests": ["Alice", "Bob", "Charlie"]})
     '''
-    
+
+
 import sqlite3
-from flask import Blueprint, request, jsonify
+from flask import Flask, Blueprint, request, jsonify
+from flask_cors import CORS
 
 guestlist_routes = Blueprint("guestlist_routes", __name__)
+
+app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000"])
 
 # Database setup
 def init_db():
@@ -85,3 +90,8 @@ def modify_guest(old_name):
     if rows_updated > 0:
         return jsonify({"message": f"{old_name} updated to {new_name}"}), 200
     return jsonify({"message": f"{old_name} not found"}), 404
+
+app.register_blueprint(guestlist_routes)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5002)

@@ -3,11 +3,43 @@ services:
   backend:
     build:
       context: ./backend
+    environment:
+      - FLASK_APP=/app/app.py
     ports:
       - "5000:5000"
     volumes:
       - ./backend/app:/app
     command: flask run --host=0.0.0.0 --port=5000
+
+  calendar_and_email_service:
+    build:
+      context: ./backend
+    environment:
+      - FLASK_APP=/app/calendar_and_email.py
+    volumes:
+      - ./backend/app:/app
+    working_dir: /app
+    command: python calendar_and_email.py
+
+  file_sharing_service:
+    build:
+      context: ./backend
+    environment:
+      - FLASK_APP=/app/file_sharing.py
+    volumes:
+      - ./backend/app:/app
+    working_dir: /app
+    command: python file_sharing.py
+
+  guestlist_service:
+    build:
+      context: ./backend
+    environment:
+      - FLASK_APP=/app/guest_list.guestlist.py
+    volumes:
+      - ./backend/app:/app
+    working_dir: /app/guest_list
+    command: python guestlist.py
 
   frontend:
     build:

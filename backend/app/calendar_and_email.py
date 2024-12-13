@@ -1,6 +1,11 @@
-from flask import Blueprint, jsonify, request
+from flask import Flask, Blueprint, jsonify, request
+from flask_cors import CORS
 
+# Going to create this as a separate "app" so it can run on a microservice
 calendar_routes = Blueprint('calendar_routes', __name__)
+
+app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000"])
 
 # In-memory "database" for events
 # Just using a dictionary for simplicity's sake
@@ -47,3 +52,8 @@ def delete_event(event_id):
     global events
     events = [event for event in events if event['id'] != event_id]
     return '', 204
+
+app.register_blueprint(calendar_routes)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5001)

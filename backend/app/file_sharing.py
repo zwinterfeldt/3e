@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, send_file
+from flask_cors import CORS
 from minio import Minio
 from minio.error import S3Error
 import tempfile
@@ -8,6 +9,9 @@ from datetime import timedelta
 from flask import Blueprint, jsonify, request
 
 filesharing_routes = Blueprint("filesharing_routes", __name__)
+
+app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000", "http://localhost:9000"])
 
 # Configure the MinIO client
 minioClient = Minio(
@@ -77,3 +81,8 @@ def share_file(filename):
         return jsonify({"url": url}), 200
     except S3Error as e:
         return jsonify({"error": str(e)}), 500
+
+app.register_blueprint(filesharing_routes)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5003)
