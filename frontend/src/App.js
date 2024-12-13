@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/share-files" element={<ShareFiles />} />
-        <Route path="/guest-lists" element={<GuestList />} />
+        <Route path="/guestlist" element={<GuestList />} />
       </Routes>
     </Router>
   );
