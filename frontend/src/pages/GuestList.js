@@ -98,18 +98,17 @@ const GuestList = () => {
   };
 
   return (
-    <div style={{textAlign: "center"
-    }}>
-      <h1>Guest List</h1>
+    <div style={{textAlign: "center"}}>
+      <h1 style={{marginTop:"20px"}}>Guest List</h1>
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      <ul>
-        {guests.map((guest) => (
-          <li key={guest}>
-            {guest}{" "}
+      <ol>
+        {guests.map((guest,index) => (
+          <li key={index}>
+            {index+1} . {" "}{guest}{" "}
             <button onClick={() => removeGuest(guest)}>Remove</button>
           </li>
         ))}
-      </ul>
+      </ol>
       <div>
         <h3>Add Guest</h3>
         <input
@@ -121,7 +120,7 @@ const GuestList = () => {
         <button onClick={addGuest}>Add</button>
       </div>
       <div>
-        <h3>Modify Guest</h3>
+        <h3 style={{marginTop: '30px'}}>Modify Guest</h3>
         <input
           type="text"
           value={updateGuest.oldName}
