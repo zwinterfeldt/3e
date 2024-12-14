@@ -34,7 +34,7 @@ EXPOSE 5001
 CMD ["python", "calendar_and_email.py"]
 
 # Third microservice: guest_list
-FROM base AS guestlist_service
+FROM base AS guestlist
 WORKDIR /app/guest_list
 EXPOSE 5002
 CMD ["python", "guestlist.py"]
