@@ -67,7 +67,7 @@ services:
     command: python guestlist.py
     labels:
       - traefik.http.routers.guestlist_service.rule=Host(`localtest.me`) && PathPrefix(`/guestlist`)
-      - traefik.http.services.guestlist_ser.loadbalancer.server.port=5002
+      - traefik.http.services.guestlist_service.loadbalancer.server.port=5002
   frontend:
     build:
       context: ./frontend
